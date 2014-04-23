@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<GrogConfigFile tool="editconf">
+    <OptionsGroup name="Input Files">
+        <InputFile name="-f" value="conf.gro" mandatory="yes">Structure file: gro g96 pdb tpr etc.</InputFile>
+        <InputFile name="-n" value="index.ndx" enabled="no">Index file</InputFile>
+        <InputFile name="-bf" value="bfact.dat" enabled="no">Generic data file</InputFile>
+    </OptionsGroup>
+    <OptionsGroup name="Output Files">
+        <OutputFile name="-o" value="out.gro" enabled="no">Structure file: gro g96 pdb etc.</OutputFile>
+        <OutputFile name="-mead" value="mead.pqr" enabled="no">Coordinate file for MEAD</OutputFile>
+    </OptionsGroup>
+    <OptionsGroup name="Program Options">
+        <OptionChoose name="-h/-noh" values="-noh;-h" enabled="no">Print help info and quit</OptionChoose>
+        <OptionChoose name="-noversion/-version" values="-noversion;-version" enabled="no">Print version info and quit</OptionChoose>
+        <OptionEnter name="-nice" value="0" enabled="no">Set the nicelevel</OptionEnter>
+        <OptionChoose name="-w/-now" values="-w;-now" enabled="no">View output .xvg, .xpm, .eps and .pdb files</OptionChoose>
+        <OptionChoose name="-ndef/-nondef" values="-ndef;-nondef" enabled="no">Choose output from default index groups</OptionChoose>
+        <OptionChoose name="-bt" values="triclinic;cubic;dodecahedron;octahedron" enabled="no">Box type for -box and -d: triclinic, cubic, dodecahedron or octahedron</OptionChoose>
+        <OptionEnter name="-box" value="0 0 0" enabled="no">Box vector lengths (a,b,c)</OptionEnter>
+        <OptionEnter name="-angles" value="90 90 90" enabled="no">Angles between the box vectors (bc,ac,ab)</OptionEnter>
+        <OptionEnter name="-d" value="0">Distance between the solute and the box</OptionEnter>
+        <OptionChoose name="-c/-noc" values="-c;-noc" enabled="no">Center molecule in box (implied by -box and -d)</OptionChoose>
+        <OptionEnter name="-center" value="0 0 0" enabled="no">Coordinates of geometrical center</OptionEnter>
+        <OptionEnter name="-aligncenter" value="0 0 0" enabled="no">Center of rotation for alignment</OptionEnter>
+        <OptionEnter name="-align" value="0 0 0" enabled="no">Align to target vector</OptionEnter>
+        <OptionEnter name="-translate" value="0 0 0" enabled="no">Translation</OptionEnter>
+        <OptionEnter name="-rotate" value="0 0 0" enabled="no">Rotation around the X, Y and Z axes in degrees</OptionEnter>
+        <OptionChoose name="-princ/-noprinc" values="-princ;-noprinc" enabled="no">Orient molecule(s) along their principal axes</OptionChoose>
+        <OptionEnter name="-scale" value="1 1 1" enabled="no">Scaling factor</OptionEnter>
+        <OptionEnter name="-density" value="1000" enabled="no">Density (g/L) of the output box achieved by scaling</OptionEnter>
+        <OptionChoose name="-pbc/-nopbc" values="-pbc;-nopbc" enabled="no">Remove the periodicity (make molecule whole again)</OptionChoose>
+        <OptionEnter name="-resnr" value="-1" enabled="no">Renumber residues starting from resnr</OptionEnter>
+        <OptionChoose name="-grasp/-nograsp" values="-grasp;-nograsp" enabled="no">
+            Store the charge of the atom in the B-factor field and the radius of the atom in the occupancy field
+        </OptionChoose>
+        <OptionEnter name="-rvdw" value="0.12" enabled="no">
+            Default Van der Waals radius (in nm) if one can not be found in the database or if no parameters are present in the topology file
+        </OptionEnter>
+        <OptionChoose name="-nosig56/-sig56" values="-nosig56;-sig56" enabled="no">Use rmin/2 (minimum in the Van der Waals potential) rather than sigma/2</OptionChoose>
+        <OptionChoose name="-vdwread/-novdwread" values="-vdwread;-novdwread" enabled="no">
+            Read the Van der Waals radii from the file vdwradii.dat rather than computing the radii based on the force field
+        </OptionChoose>
+        <OptionChoose name="-atom/-noatom" values="-atom;-noatom" enabled="no">Force B-factor attachment per atom</OptionChoose>
+        <OptionChoose name="-legend/-nolegend" values="-legend;-nolegend" enabled="no">Make B-factor legend</OptionChoose>
+        <OptionEnter name="-label" value="A" enabled="no">Add chain label for all residues</OptionEnter>
+        <OptionChoose name="-noconect/-conect" values="-noconect;-conect" enabled="no">Add CONECT records to a .pdb file when written. Can only be done when a topology is present</OptionChoose>
+    </OptionsGroup>
+</GrogConfigFile>
+

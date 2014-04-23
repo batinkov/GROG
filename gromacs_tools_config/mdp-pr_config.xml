@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<GrogConfigFile tool="mdp file generator for position restraints">
+    <OptionsGroup name="Output Files">
+        <OutputFile name="output file" value="grompp-pr.mdp" mandatory="yes"/>
+    </OptionsGroup>
+
+    <OptionsGroup name="VARIOUS PREPROCESSING OPTIONS">
+        <OptionEnter name="title" value="Yo-pr" />
+        <OptionEnter name="cpp" value="/usr/bin/cpp" />
+        <OptionEnter name="include" enabled="no">directories to include in your topology. Format: -I/home/john/my_lib -I../more_lib</OptionEnter>
+        <OptionEnter name="define" value="-DPOSRES">defines to pass to the preprocessor, default is no defines.</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="RUN CONTROL PARAMETERS">
+        <OptionChoose name="integrator" values="md;sd;sd1;bd;steep;cg;l-bfgs;nm;tpi;tpic">integrator</OptionChoose>
+        <OptionEnter name="tinit" value="0" enabled="no">(0) [ps] : starting time for your run (only makes sense for integrators md, sd and bd)</OptionEnter>
+        <OptionEnter name="dt" value="0.002">(0.001) [ps] : time step for integration (only makes sense for integrators md, sd and bd)</OptionEnter>
+        <OptionEnter name="nsteps" value="5000">(0) : maximum number of steps to integrate</OptionEnter>
+        <OptionEnter name="init_step" value="0" enabled="no">(0) : The starting step.</OptionEnter>
+        <OptionChoose name="comm_mode" values="Linear;Angular;No" enabled="no">
+            Linear(Remove center of mass translation)
+            Angular(Remove center of mass translation and rotation around the center of mass)
+            No(No restriction on the center of mass motion)
+        </OptionChoose>
+        <OptionEnter name="nstcomm" value="1">(1) [steps] : frequency for center of mass motion removal</OptionEnter>
+        <OptionEnter name="comm-grps" enabled="no">group(s) for center of mass motion removal, default is the whole system</OptionEnter>
+    </OptionsGroup>
+
+    <OptionsGroup name="LANGEVIN DYNAMICS OPTIONS">
+        <OptionEnter name="bd-temp" value="300" enabled="no"/>
+        <OptionEnter name="bd-fric" value="0" enabled="no">
+            (0) [amu ps-1] : Brownian dynamics friction coefficient. When bd_fric=0, the friction coefficient for each particle is calculated as mass/tau
+        </OptionEnter>
+        <OptionEnter name="ld-seed" value="1993" enabled="no">(1993) [integer] : used to initialize random generator for thermal noise for stochastic and Brownian dynamics.</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="ENERGY MINIMIZATION OPTIONS">
+        <OptionEnter name="emtol" value="2000" enabled="no">(10.0) [kJ mol-1 nm-1] : the minimization is converged when the maximum force is smaller than this value</OptionEnter>
+        <OptionEnter name="emstep" value="0.01" enabled="no">(0.01) [nm] : initial step-size</OptionEnter>
+        <OptionEnter name="niter" enabled="no" />
+        <OptionEnter name="nstcgsteep" value="1000" enabled="no">
+            (1000) [steps] : frequency of performing 1 steepest descent step while doing conjugate gradient energy minimization
+        </OptionEnter>
+        <OptionEnter name="nbfgscorr" value="10" enabled="no">
+            (10) : Number of correction steps to use for L-BFGS minimization. A higher number is (at least theoretically) more accurate, but slower.
+        </OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Shell Molecular Dynamics">
+        <OptionEnter name="niter" value="20" enabled="no">(20) : maximum number of iterations for optimizing the shell positions and the flexible constraints.</OptionEnter>
+        <OptionEnter name="fcstep" value="0" enabled="no">(0) [ps2] : the step size for optimizing the flexible constraints.</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Test particle insertion">
+        <OptionEnter name="rtpi" value="0.05" enabled="no">(0.05) [nm] : the test particle insertion radius see integrators tpi and tpic</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="OUTPUT CONTROL OPTIONS">
+        <OptionEnter name="nstxout" value="50">(100) [steps] : frequency to write coordinates to output trajectory file, the last coordinates are always written</OptionEnter>
+        <OptionEnter name="nstvout" value="1000">(100) [steps] : frequency to write velocities to output trajectory, the last velocities are always written</OptionEnter>
+        <OptionEnter name="nstfout" value="0">(0) [steps] : frequency to write forces to output trajectory.</OptionEnter>
+        <OptionEnter name="nstlog" value="10">(100) [steps] : frequency to write energies to log file, the last energies are always written</OptionEnter>
+        <OptionEnter name="nstenergy" value="10">(100) [steps] : frequency to write energies to energy file, the last energies are always written.</OptionEnter>
+        <OptionEnter name="nstxtcout" value="250" enabled="no">(0) [steps] : frequency to write coordinates to xtc trajectory</OptionEnter>
+        <OptionEnter name="xtc-precision" value="1000" enabled="no">(1000) [real] : precision to write to xtc trajectory</OptionEnter>
+        <OptionEnter name="xtc_grps" enabled="no">group(s) to write to xtc trajectory, default the whole system is written (if nstxtcout is larger than zero)</OptionEnter>
+        <OptionEnter name="energygrps" value="Protein SOL">group(s) to write to energy file</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="NEIGHBORSEARCHING PARAMETERS">
+        <OptionEnter name="nstlist" value="10">(10) [steps] : 
+            > 0(Frequency to update the neighbor list)
+            0(The neighbor list is only constructed once and never updated)
+            -1(Automated update frequency)
+        </OptionEnter>
+        <OptionChoose name="ns_type" values="grid;simple">
+            grid(Make a grid in the box and only check atoms in neighboring grid cells when constructing a new neighbor list every nstlist steps)
+            simple(Check every atom in the box when constructing a new neighbor list every nstlist steps)
+        </OptionChoose>
+        <OptionChoose name="pbc" values="xyz;no;xy" enabled="no">
+            xyz(Use periodic boundary conditions in all directions)
+            no(Use no periodic boundary conditions, ignore the box, only works with ns_type=simple)
+            xy(Use periodic boundary conditions in x and y directions only)
+        </OptionChoose>
+        <OptionChoose name="periodic_molecules" values="no;yes" enabled="no">
+            no(molecules are finite, fast molecular pbc can be used)
+            yes(for systems with molecules that couple to themselves through the periodic boundary conditions)
+        </OptionChoose>
+        <OptionEnter name="rlist" value="1.0">(1) [nm] : cut-off distance for the short-range neighbor list</OptionEnter>
+        <OptionChoose name="domain-decomposition" values="no;yes" enabled="no" />
+    </OptionsGroup>
+    
+    <OptionsGroup name="OPTIONS FOR ELECTROSTATICS">
+        <OptionChoose name="coulombtype" values="Cut-off;Ewald;PME;PPPM;Reaction-Field;Generalized-Reaction-Field;Reaction-Field-zero;Reaction-Field-nec;Shift;Encad-Shift;Switch;User;PME-Switch;PME-User;PME-User-Switch" enabled="no"/>
+        <OptionEnter name="rcoulomb-switch" value="0" enabled="no">(0) [nm] : where to start switching the Coulomb potential</OptionEnter>
+        <OptionEnter name="rcoulomb" value="1.0">(1) [nm] : distance for the Coulomb cut-off</OptionEnter>
+        <OptionEnter name="epsilon-r" value="1" enabled="no">(1) : The relative dielectric constant. A value of 0 means infinity.</OptionEnter>
+        <OptionEnter name="epsilon_rf" value="1" enabled="no">
+            (1) : The relative dielectric constant of the reaction field. This is only used with reaction-field electrostatics. A value of 0 means infinity.
+        </OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="OPTIONS FOR VDW">
+        <OptionChoose name="vdw-type" values="Cut-off;Shift;Switch;Encad-Shift;User" enabled="no"/>
+        <OptionEnter name="rvdw-switch" value="0" enabled="no">(0) [nm] : where to start switching the LJ potential</OptionEnter>
+        <OptionEnter name="rvdw" value="1.0">(1) [nm] : distance for the LJ or Buckingham cut-off</OptionEnter>
+        <OptionChoose name="DispCorr" values="no;EnerPres;Ener" enabled="no">
+            no(don't apply any correction)
+            EnerPres(apply long range dispersion corrections for Energy and Pressure)
+
+            Ener(apply long range dispersion corrections for Energy only)
+        </OptionChoose>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Tables">
+        <OptionEnter name="table-extension" value="1" enabled="no">(1) [nm] : Extension of the non-bonded potential lookup tables beyond the largest cut-off distance.</OptionEnter>
+        <OptionEnter name="energygrp_table" enabled="no"></OptionEnter>
+    </OptionsGroup>
+
+    <OptionsGroup name="Ewald">
+        <OptionEnter name="fourierspacing" value="0.12" enabled="no"> (0.12) [nm] : The maximum grid spacing for the FFT grid when using PPPM or PME.</OptionEnter>
+        <OptionEnter name="fourier_nx" value="0" enabled="no">Highest magnitude of wave vectors in reciprocal space when using Ewald.</OptionEnter>
+        <OptionEnter name="fourier_ny" value="0" enabled="no">Highest magnitude of wave vectors in reciprocal space when using Ewald.</OptionEnter>
+        <OptionEnter name="fourier_nz" value="0" enabled="no">Highest magnitude of wave vectors in reciprocal space when using Ewald.</OptionEnter>
+        <OptionEnter name="pme_order" value="4" enabled="no">
+            Interpolation order for PME. 4 equals cubic interpolation. You might try 6/8/10 when running in parallel and simultaneously decrease grid dimension.
+        </OptionEnter>
+        <OptionEnter name="ewald_rtol" value="1e-05" enabled="no">(1e-5) : The relative strength of the Ewald-shifted direct potential at rcoulomb is given by ewald_rtol.</OptionEnter>
+        <OptionChoose name="ewald_geometry" values="3d;3dc" enabled="no">
+            3d(The Ewald sum is performed in all three dimensions)
+            3dc(The reciprocal sum is still performed in 3d, but a force and potential correction applied in the z dimension to produce a pseudo-2d summation)
+        </OptionChoose>
+        <OptionEnter name="epsilon_surface" value="0" enabled="no">(0) : This controls the dipole correction to the Ewald summation in 3d.</OptionEnter>
+        <OptionChoose name="optimize_fft" values="no;yes" enabled="no">
+            no(Don't calculate the optimal FFT plan for the grid at startup)
+            yes(Calculate the optimal FFT plan for the grid at startup)
+        </OptionChoose>
+    </OptionsGroup>
+    
+    <OptionsGroup name="OPTIONS FOR Temperature coupling">
+        <OptionChoose name="tcoupl" values="berendsen;no;nose-hoover;v-rescale" />
+        <OptionEnter name="tc-grps" value="Protein SOL">groups to couple separately to temperature bath</OptionEnter>
+        <OptionEnter name="tau_t" value="0.1 0.1">[ps] : time constant for coupling (one for each group in tc_grps), 0 means no temperature coupling</OptionEnter>
+        <OptionEnter name="ref_t" value="300 300">[K] : reference temperature for coupling (one for each group in tc_grps)</OptionEnter>
+    </OptionsGroup>
+        
+    <OptionsGroup name="OPTIONS FOR Pressure coupling">
+        <OptionChoose name="pcoupl" values="no;berendsen;Parrinello-Rahman">
+            no(No pressure coupling. This means a fixed box size)
+            berendsen(Exponential relaxation pressure coupling with time constant tau_p [ps])
+            Parrinello-Rahman(Extended-ensemble pressure coupling where the box vectors are subject to an equation of motion)
+        </OptionChoose>
+        <OptionChoose name="pcoupltype" values="isotropic;semiisotropic;anisotropic;surface-tension" enabled="no" />
+        <OptionEnter name="tau_p" value="0.5">(1) [ps] : time constant for coupling</OptionEnter>
+        <OptionEnter name="compressibility" value="4.5e-5">[bar-1] : For water at 1 atm and 300 K the compressibility is 4.5e-5 [bar-1].</OptionEnter>
+        <OptionEnter name="ref_p" value="1.0">[bar] : reference pressure for coupling</OptionEnter>
+        <OptionChoose name="refcoord_scaling" values="no;all;com" enabled="no" />
+    </OptionsGroup>
+    
+    <OptionsGroup name="SIMULATED ANNEALING CONTROL">
+        <OptionChoose name="annealing" values="no;single;periodic" enabled="no">Type of annealing for each temperature group</OptionChoose>
+        <OptionEnter name="annealing_npoints" enabled="no">A list with the number of annealing reference/control points used for each temperature group.</OptionEnter>
+        <OptionEnter name="annealing_time" enabled="no">List of times at the annealing reference/control points for each group.</OptionEnter>
+        <OptionEnter name="annealing_temp" enabled="no">List of temperatures at the annealing reference/control points for each group.</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="GENERATE VELOCITIES FOR STARTUP RUN">
+        <OptionChoose name="gen_vel" values="yes;no">
+            no(Do not generate velocities at startup)
+            yes(Generate velocities according to a Maxwell distribution at temperature gen_temp [K])
+        </OptionChoose>
+        <OptionEnter name="gen_temp" value="300.0">(300) [K] : temperature for Maxwell distribution</OptionEnter>
+        <OptionEnter name="gen_seed" value="173529">(173529) [integer] : used to initialize random generator for random velocities</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="OPTIONS FOR BONDS">
+        <OptionChoose name="constraints" values="all-bonds;none;hbonds;h-angles;all-angles" />
+        <OptionChoose name="constraint-algorithm" values="LINCS;SHAKE" enabled="no" />
+        <OptionChoose name="unconstrained-start" values="no;yes" enabled="no">
+            no(apply constraints to the start configuration and reset shells)
+            yes(do not apply constraints to the start configuration and do not reset shells, useful for exact coninuation and reruns)
+        </OptionChoose>
+        <OptionEnter name="shake-tol" value="0.0001" enabled="no">(0.0001) : relative tolerance for SHAKE</OptionEnter>
+        <OptionEnter name="lincs-order" value="4" enabled="no">(4) : Highest order in the expansion of the constraint coupling matrix.</OptionEnter>
+        <OptionEnter name="lincs_iter" value="1" enabled="no">(1) : Number of iterations to correct for rotational lengthening in LINCS.</OptionEnter>
+        <OptionEnter name="lincs-warnangle" value="30" enabled="no">(30) [degrees] : maximum angle that a bond can rotate before LINCS will complain</OptionEnter>
+        <OptionChoose name="morse" values="no;yes" enabled="no">
+            no(bonds are represented by a harmonic potential)
+            yes(bonds are represented by a Morse potential)
+        </OptionChoose>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Energy group exclusions">
+        <OptionEnter name="energygrp_excl" enabled="no">Pairs of energy groups for which all non-bonded interactions are excluded.</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Walls">
+        <OptionEnter name="nwall" value="0" enabled="no" />
+        <OptionChoose name="wall_type" values="9-3;10-4;table" enabled="no" />
+        <OptionEnter name="wall_r_linpot" value="-1" enabled="no">
+            -1 (nm) : Below this distance from the wall the potential is continued linearly and thus the force is constant.
+        </OptionEnter>
+        <OptionEnter name="wall_atomtype" enabled="no">
+            the atom type name in the force field for each wall, this allows for independent tuning of the interaction of each atomtype with the walls
+        </OptionEnter>
+        <OptionEnter name="wall_density" enabled="no">[nm-3/nm-2] : the number density of the atoms for each wall for wall types 9-3 and 10-4</OptionEnter>
+        <OptionEnter name="wall_ewald_zfac" value="3" enabled="no">3 : The scaling factor for the third box vector for Ewald summation only</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="COM pulling">
+        <OptionChoose name="pull" values="no;umbrella;constraint;constant_force" enabled="no" />
+        <OptionChoose name="pull_geometry" values="distance;direction;cylinder;position" enabled="no" />
+        <OptionEnter name="pull_dim" enabled="no">(Y Y Y) : the distance components to be used with geometry distance and position</OptionEnter>
+        <OptionEnter name="pull_r1" value="1" enabled="no">(1) [nm] : the inner radius of the cylinder for geometry cylinder</OptionEnter>
+        <OptionEnter name="pull_r0" value="1" enabled="no">(1) [nm] : the outer radius of the cylinder for geometry cylinder</OptionEnter>
+        <OptionEnter name="pull_constr_tol" enabled="no">(1e-6) : the relative constraint tolerance for constraint pulling</OptionEnter>
+        <OptionChoose name="pull_start" values="no;yes" enabled="no">
+            no(do not modify pull_init)
+            yes(add the COM distance of the starting conformation to pull_init)
+        </OptionChoose>
+        <OptionEnter name="pull_nstxout" value="10" enabled="no">(10) : frequency for writing out the COMs of all the pull group</OptionEnter>
+        <OptionEnter name="pull_nstfout" value="1" enabled="no">(1) : frequency for writing out the force of all the pulled group</OptionEnter>
+        <OptionEnter name="pull_ngroups" value="1" enabled="no">(1) : The number of pull groups, not including the reference group.</OptionEnter>
+        <OptionEnter name="pull_group0" enabled="no">The name of the reference group.</OptionEnter>
+        <OptionEnter name="pull_weights0" enabled="no">see pull_weights1</OptionEnter>
+        <OptionEnter name="pull_pbcatom0" value="0" enabled="no">(0) : see pull_pbcatom1</OptionEnter>
+        <OptionEnter name="pull_group1" enabled="no">The name of the pull group.</OptionEnter>
+        <OptionEnter name="pull_weights1" enabled="no">
+            Optional relative weights which are multiplied with the masses of the atoms to give the total weight for the COM.
+        </OptionEnter>
+        <OptionEnter name="pull_pbcatom1" enabled="no">
+            (0) : The reference atom for the treatment of periodic boundary conditions inside the group (this has no effect on the treatment of the pbc between groups).
+        </OptionEnter>
+        <OptionEnter name="pull_vec1" enabled="no">(0.0 0.0 0.0) : The pull direction. grompp normalizes the vector.</OptionEnter>
+        <OptionEnter name="pull_init1" enabled="no">
+            (0.0) / (0.0 0.0 0.0) [nm] : The reference distance at t=0. This is a single value, except for geometry position which uses a vector.
+        </OptionEnter>
+        <OptionEnter name="pull_rate1" enabled="no">(0) [nm/ps] : The rate of change of the reference position.</OptionEnter>
+        <OptionEnter name="pull_k1" value="0" enabled="no">(0) [kJ mol-1 nm-2] / [kJ mol-1 nm-1] : The force constant.</OptionEnter>
+        <OptionEnter name="pull_kB1" value="pull_k1" enabled="no">(pull_k1) [kJ mol-1 nm-2] / [kJ mol-1 nm-1] : As pull_k1, but for state B.</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="NMR refinement stuff">
+        <OptionChoose name="disre" values="no;simple;ensemble" enabled="no" />
+        <OptionChoose name="disre-weighting" values="conservative;equal" enabled="no" />
+        <OptionChoose name="disre-mixed" values="no;yes" enabled="no" />
+        <OptionEnter name="disre-fc" value="1000" enabled="no">
+            (1000) [kJ mol-1 nm-2] : force constant for distance restraints, which is multiplied by a (possibly) different factor for each restraint
+        </OptionEnter>
+        <OptionEnter name="disre-tau" value="0" enabled="no">(0) [ps] : time constant for distance restraints running average</OptionEnter>
+        <OptionEnter name="nstdisreout" value="100" enabled="no" />
+        <OptionChoose name="orire" values="no;yes" enabled="no">
+            no(no orientation restraints)
+            yes(use orientation restraints, ensemble averaging can be performed with mdrun -multi)
+        </OptionChoose>
+        <OptionEnter name="orire_fc" enabled="no">(0) [kJ mol] : force constant for orientation restraints.</OptionEnter>
+        <OptionEnter name="orire_tau" value="0" enabled="no">(0) [ps] : time constant for orientation restraints running average</OptionEnter>
+        <OptionEnter name="orire_fitgrp" enabled="no">fit group for orientation restraining, for a protein backbone is a good choice</OptionEnter>
+        <OptionEnter name="nstorireout" value="100" enabled="no">
+            (100) [steps] : frequency to write the running time averaged and instantaneous orientations for all restraints and the molecular order tensor to the energy file
+        </OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Free energy control stuff">
+        <OptionChoose name="free-energy" values="no;yes" enabled="no" />
+        <OptionEnter name="init-lambda" value="0" enabled="no">(0) : starting value for lambda</OptionEnter>
+        <OptionEnter name="delta-lambda" value="0" enabled="no">(0) : increment per time step for lambda</OptionEnter>
+        <OptionEnter name="sc-alpha" value="0" enabled="no">(0) : the soft-core parameter, a value of 0 results in linear interpolation of the LJ and Coulomb interactions</OptionEnter>
+        <OptionEnter name="sc_power" value="0" enabled="no">(0) : the power for lambda in the soft-core function, only the values 1 and 2 are supported</OptionEnter>
+        <OptionEnter name="sc-sigma" value="0.3" enabled="no">(0.3) [nm] : the soft-core sigma for particles which have a C6 or C12 parameter equal to zero</OptionEnter>
+        <OptionEnter name="couple-moltype" enabled="no">
+            Here one can supply a molecule type (as defined in the topology) for calculating solvation or coupling free energies.
+        </OptionEnter>
+        <OptionChoose name="couple-lambda0" values="vdw-q;vdw;none" enabled="no" />
+        <OptionEnter name="couple-lambda1" enabled="no">analogous to couple-lambda1, but for lambda=1</OptionEnter>
+        <OptionChoose name="couple-intramol" values="no;yes" enabled="no" />
+    </OptionsGroup>
+
+    <OptionsGroup name="Non-equilibrium MD stuff">
+        <OptionEnter name="acc-grps" enabled="no">groups for constant acceleration</OptionEnter>
+        <OptionEnter name="accelerate" value="0" enabled="no">(0) [nm ps-2] : acceleration for acc_grps</OptionEnter>
+        <OptionEnter name="freezegrps" enabled="no" enabled="no">Groups that are to be frozen</OptionEnter>
+        <OptionEnter name="freezedim" enabled="no" enabled="no">dimensions for which groups in freezegrps</OptionEnter>
+        <OptionEnter name="cos-acceleration" value="0" enabled="no">(0) [nm ps-2] : </OptionEnter>
+        <OptionEnter name="deform" enabled="no">(0 0 0 0 0 0) [nm ps-1] : The velocities of deformation for the box elements</OptionEnter>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Electric fields">
+        <OptionEnter name="E-x" enabled="no" />
+        <OptionEnter name="E-xt" enabled="no" />
+        <OptionEnter name="E-y" enabled="no" />
+        <OptionEnter name="E-yt" enabled="no" />
+        <OptionEnter name="E-z" enabled="no" />
+        <OptionEnter name="E-zt" enabled="no" />
+    </OptionsGroup>
+    
+    <OptionsGroup name="Mixed quantum/classical molecular dynamics">
+        <OptionChoose name="QMMM" values="no;yes" enabled="no">no(No QM/MM) yes(Do a QM/MM simulation)</OptionChoose>
+        <OptionEnter name="QMMM-grps" enabled="no">groups to be descibed at the QM level</OptionEnter>
+        <OptionChoose name="QMMMscheme" values="normal;ONIOM" enabled="no">
+            normal(normal QM/MM)
+            ONIOM(The interaction between the subsystem is described using the ONIOM method by Morokuma and co-workers.)
+        </OptionChoose>
+        <OptionEnter name="QMmethod" value="RHF" enabled="no">(RHF) : Method used to compute the energy and gradients on the QM atoms.</OptionEnter>
+        <OptionEnter name="QMbasis" value="STO-3G" enabled="no">(STO-3G) : Basisset used to expand the electronic wavefuntion.</OptionEnter>
+        <OptionEnter name="QMmult" value="1" enabled="no">(1) [integer] : The multiplicity of the QMMM-grps.</OptionEnter>
+        <OptionEnter name="CASorbitals" value="0" enabled="no">
+            (0) [integer] : The number of orbitals to be included in the active space when doing a CASSCF computation.
+        </OptionEnter>
+        <OptionEnter name="CASelectrons" value="0" enabled="no">(0) [integer] : The number of electrons to be included in the active space when doing a CASSCF computation.</OptionEnter>
+        <OptionChoose name="SH" values="no;yes" enabled="no">no(No surface hopping) yes(Do a QM/MM MD simulation)</OptionChoose>
+    </OptionsGroup>
+    
+    <OptionsGroup name="User defined thingies">
+        <OptionEnter name="user1-grps" enabled="no" />
+        <OptionEnter name="user2-grps" enabled="no" />
+        <OptionEnter name="userint1" value="0" enabled="no" />
+        <OptionEnter name="userint2" value="0" enabled="no" />
+        <OptionEnter name="userint3" value="0" enabled="no" />
+        <OptionEnter name="userint4" value="0" enabled="no" />
+        <OptionEnter name="userreal1" value="0" enabled="no">These you can use if you modify code.</OptionEnter>
+        <OptionEnter name="userreal2" value="0" enabled="no">These you can use if you modify code.</OptionEnter>
+        <OptionEnter name="userreal3" value="0" enabled="no">These you can use if you modify code.</OptionEnter>
+        <OptionEnter name="userreal4" value="0" enabled="no">These you can use if you modify code.</OptionEnter>
+    </OptionsGroup>
+</GrogConfigFile>
+

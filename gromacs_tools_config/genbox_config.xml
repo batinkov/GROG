@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<GrogConfigFile tool="genbox">
+    <OptionsGroup name="Input Files">
+        <InputFile name="-cp" value="protein.gro">Structure file: gro g96 pdb tpr tpb tpa</InputFile>
+        <InputFile name="-cs" value="spc216.gro">Lib. Structure file: gro g96 pdb tpr tpb tpa</InputFile>
+        <InputFile name="-ci" value="insert.gro" enabled="no">Structure file: gro g96 pdb tpr tpb tpa</InputFile>
+        <InputFile name="-p" value="topol.top">Topology file</InputFile>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Output Files">
+        <OutputFile name="-o" value="out.gro" mandatory="yes">Structure file: gro g96 pdb</OutputFile>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Program Options">
+        <OptionChoose name="-h/-noh" values="-noh;-h" enabled="no">Print help info and quit</OptionChoose>
+        <OptionChoose name="-noversion/-version" values="-noversion;-version" enabled="no">Print version info and quit</OptionChoose>
+        <OptionEnter name="-nice" value="19" enabled="no">Set the nicelevel</OptionEnter>
+        <OptionEnter name="-box" value="0 0 0" enabled="no">box size</OptionEnter>
+        <OptionEnter name="-nmol" value="0" enabled="no"></OptionEnter>
+        <OptionEnter name="-try" value="10" enabled="no">try inserting -nmol*-try times</OptionEnter>
+        <OptionEnter name="-seed" value="1997" enabled="no">random generator seed</OptionEnter>
+        <OptionEnter name="-vdwd" value="0.105" enabled="no">default vdwaals distance</OptionEnter>
+        <OptionEnter name="-shell" value="0" enabled="no">thickness of optional water layer around solute</OptionEnter>
+        <OptionEnter name="-maxsol" value="0" enabled="no">
+            maximum number of solvent molecules to add if they fit in the box. If zero (default) this is ignored
+        </OptionEnter>
+        <OptionChoose name="-vel/-novel" values="-vel;-novel" enabled="no">keep velocities from input solute and solvent</OptionChoose>
+    </OptionsGroup>
+</GrogConfigFile>
+

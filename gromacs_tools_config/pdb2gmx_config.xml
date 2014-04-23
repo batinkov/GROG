@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<GrogConfigFile tool="pdb2gmx">
+    <OptionsGroup name="Input Files">
+        <InputFile name="-f" value="eiwit.pdb" mandatory="yes">Structure file: gro g96 pdb tpr etc.</InputFile>
+    </OptionsGroup>
+    <OptionsGroup name="Output Files">
+        <OutputFile name="-o" value="conf.gro" mandatory="yes">Structure file: gro g96 pdb etc.</OutputFile>
+        <OutputFile name="-p" value="topol.top" mandatory="yes">Topology file</OutputFile>
+        <OutputFile name="-i" value="posre.itp" mandatory="yes">Include file for topology</OutputFile>
+        <OutputFile name="-n" value="clean.ndx" enabled="no">Index file</OutputFile>
+        <OutputFile name="-q" value="clean.pdb" enabled="no">Output, Opt. Structure file: gro g96 pdb etc.</OutputFile>
+    </OptionsGroup>
+    <OptionsGroup name="Program Options">
+        <OptionChoose name="-h/-noh" values="-noh;-h" enabled="no">Print help info and quit</OptionChoose>
+        <OptionChoose name="-noversion/-version" values="-noversion;-version" enabled="no">Print version info and quit</OptionChoose>
+        <OptionEnter name="-nice" value="0" enabled="no">Set the nicelevel</OptionEnter>
+        <OptionChoose name="-chainsep" values="id_or_ter;id_and_ter;ter;id;interactive" enabled="no">
+            Condition in PDB files when a new chain should be started (adding termini): id_or_ter, id_and_ter, ter, id or interactive
+        </OptionChoose>
+        <OptionChoose name="-merge" values="no;all;interactive" enabled="no">Merge multiple chains into a single [moleculetype]: no, all or interactive</OptionChoose>
+        <OptionChoose name="-ff" values="AMBER03;AMBER94;AMBER96;AMBER99;AMBER99SB;AMBER99SB-ILDN;AMBERGS;CHARMM27;GROMOS96;GROMOS96;GROMOS96;GROMOS96;GROMOS96;GROMOS96;OPLS-AA/L" enabled="no">Force field, interactive by default. Use -h for information.</OptionChoose>
+        <OptionChoose name="-water" values="select;none;spc;spce;tip3p;tip4p;tip5p" enabled="no">Water model to use: select, none, spc, spce,tip3p, tip4p or tip5p</OptionChoose>
+        <OptionChoose name="-nointer/-inter" values="-nointer;-inter" enabled="no">Set the next 8 options to interactive</OptionChoose>
+        <OptionChoose name="-ss/-noss" values="-ss;-noss" enabled="no">Interactive SS bridge selection</OptionChoose>
+        <OptionChoose name="-ter/-noter" values="-ter;-noter" enabled="no">Interactive termini selection, instead of charged (default)</OptionChoose>
+        <OptionChoose name="-lys/-nolys" values="-lys;-nolys" enabled="no">Interactive lysine selection, instead of charged</OptionChoose>
+        <OptionChoose name="-arg/-noarg" values="-arg;-noarg" enabled="no">Interactive arginine selection, instead of charged</OptionChoose>
+        <OptionChoose name="-asp/-noasp" values="-asp;-noasp" enabled="no">Interactive aspartic acid selection, instead of charged</OptionChoose>
+        <OptionChoose name="-glu/-noglu" values="-glu;-noglu" enabled="no">Interactive glutamic acid selection, instead of charged</OptionChoose>
+        <OptionChoose name="-gln/-nogln"  values="-gln;-nogln" enabled="no">Interactive glutamine selection, instead of neutral</OptionChoose>
+        <OptionChoose name="-his/-nohis"  values="-his;-nohis" enabled="no">Interactive histidine selection, instead of checking H-bonds</OptionChoose>
+        <OptionEnter name="-angle" value="135" enabled="no">Minimum hydrogen-donor-acceptor angle for a H-bond (degrees)</OptionEnter>
+        <OptionEnter name="-dist" value="0.3" enabled="no">Maximum donor-acceptor distance for a H-bond (nm)</OptionEnter>
+        <OptionChoose name="-una/-nouna"  values="-una;-nouna" enabled="no">Select aromatic rings with united CH atoms on phenylalanine, tryptophane and tyrosine</OptionChoose>
+        <OptionChoose name="-ignh/-noignh"  values="-ignh;-noignh" enabled="no">Ignore hydrogen atoms that are in the coordinate file</OptionChoose>
+        <OptionChoose name="-missing/-nomissing"  values="-missing;-nomissing" enabled="no">Continue when atoms are missing, dangerous</OptionChoose>
+        <OptionChoose name="-v/-nov"  values="-nov;-v" enabled="no">Be slightly more verbose in messages</OptionChoose>
+        <OptionEnter name="-posrefc" value="1000" enabled="no">Force constant for position restraints</OptionEnter>
+        <OptionChoose name="-vsite"  values="none;hydrogens;aromatics" enabled="no">Convert atoms to virtual sites: none, hydrogens or aromatics</OptionChoose>
+        <OptionChoose name="-heavyh/-noheavyh"  values="-heavyh;-noheavyh" enabled="no">Make hydrogen atoms heavy</OptionChoose>
+        <OptionChoose name="-deuterate/-nodeuterate"  values="-deuterate;-nodeuterate" enabled="no">Change the mass of hydrogens to 2 amu</OptionChoose>
+        <OptionChoose name="-chargegrp/-nochargegrp"  values="-nochargegrp;-chargegrp" enabled="no">Use charge groups in the .rtp file</OptionChoose>
+        <OptionChoose name="-cmap/-nocmap"  values="-cmap;-nocmap" enabled="no">Use cmap torsions (if enabled in the .rtp file)</OptionChoose>
+        <OptionChoose name="-norenum/-renum"  values="-norenum;-renum" enabled="no">Renumber the residues consecutively in the output</OptionChoose>
+        <OptionChoose name="-nortpres/-rtpres"  values="-nortpres;-rtpres" enabled="no">Use .rtp entry names as residue names</OptionChoose>
+    </OptionsGroup>
+</GrogConfigFile>
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<GrogConfigFile tool="mdrun (energy minimization)">
+    <OptionsGroup name="Input Files">
+        <InputFile name="-s" value="topol.tpr" mandatory="yes">Run input file: tpr tpb tpa</InputFile>
+        <InputFile name="-cpi" value="state.cpt" enabled="no">Checkpoint file</InputFile>
+        <InputFile name="-table" value="table.xvg" enabled="no">xvgr/xmgr file</InputFile>
+        <InputFile name="-tabletf" value="tabletf.xvg" enabled="no">xvgr/xmgr file</InputFile>
+        <InputFile name="-tablep" value="tablep.xvg" enabled="no">xvgr/xmgr file</InputFile>
+        <InputFile name="-tableb" value="table.xvg" enabled="no">xvgr/xmgr file</InputFile>
+        <InputFile name="-rerun" value="rerun.xtc" enabled="no">Trajectory: xtc trr trj gro g96 pdb cpt</InputFile>
+        <InputFile name="-ei" value="sam.edi" enabled="no">ED sampling input</InputFile>
+        <InputFile name="-j" value="wham.gct" enabled="no">General coupling stuff</InputFile>
+        <InputFile name="-multidir" value="rundir" enabled="no">Mult. Run directory</InputFile>
+        <InputFile name="-membed" value="membed.dat" enabled="no">Generic data file</InputFile>
+        <InputFile name="-mp" value="membed.top" enabled="no">Topology file/InputFile>
+        <InputFile name="-mn" value="membed.ndx" enabled="no">Index file</InputFile>
+    </OptionsGroup>
+
+    <OptionsGroup name="Output Files">
+        <OutputFile name="-o" value="traj.trr">Full precision trajectory: trr trj cpt</OutputFile>
+        <OutputFile name="-x" value="traj.xtc" enabled="no">Compressed trajectory (portable xdr format)</OutputFile>
+        <OutputFile name="-cpo" value="state.cpt" enabled="no">Checkpoint file</OutputFile>
+        <OutputFile name="-c" value="after_em.gro">Structure file: gro g96 pdb</OutputFile>
+        <OutputFile name="-e" value="ener.edr" enabled="no">Energy file: edr ene</OutputFile>
+        <OutputFile name="-g" value="em.log">Log file</OutputFile>
+        <OutputFile name="-dhdl" value="dhdl.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-field" value="field.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-tpi" value="tpi.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-tpid" value="tpidist.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-eo" value="sam.edo" enabled="no">ED sampling output</OutputFile>
+        <OutputFile name="-jo" value="bam.gct" enabled="no">General coupling stuff</OutputFile>
+        <OutputFile name="-ffout" value="gct.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-devout" value="deviatie.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-runav" value="runaver.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-px" value="pullx.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-pf" value="pullf.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-ro" value="rotation.xvg" enabled="no">xvgr/xmgr file</OutputFile>
+        <OutputFile name="-ra" value="rotangles.log" enabled="no">Log file</OutputFile>
+        <OutputFile name="-rs" value="rotslabs.log" enabled="no">Log file</OutputFile>
+        <OutputFile name="-rt" value="rottorque.log" enabled="no">Log file</OutputFile>
+        <OutputFile name="-mtx" value="nm.mtx" enabled="no">Hessian matrix</OutputFile>
+        <OutputFile name="-dn" value="dipole.ndx" enabled="no">Index file</OutputFile>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Program Options">
+        <OptionChoose name="-h/-noh" values="-noh;-h" enabled="no">Print help info and quit</OptionChoose>
+        <OptionChoose name="-noversion/-version" values="-noversion;-version" enabled="no">Print version info and quit</OptionChoose>
+        <OptionEnter name="-nice" value="19" enabled="no">Set the nicelevel</OptionEnter>
+        <OptionEnter name="-deffnm" enabled="no" enabled="no">Set the default filename for all file options</OptionEnter>
+        <OptionChoose name="-xvg" values="xmgrace;xmgr;none" enabled="no">xvg plot formatting: xmgrace, xmgr or none</OptionChoose>
+        <OptionChoose name="-pd/-nopd" values="-pd;-nopd" enabled="no">Use particle decompostion</OptionChoose>
+        <OptionEnter name="-dd" value="0 0 0" enabled="no">Domain decomposition grid, 0 is optimize</OptionEnter>
+        <OptionChoose name="-ddorder" values="interleave;pp_pme;cartesian" enabled="no">DD node order: interleave, pp_pme or cartesian</OptionChoose>
+        <OptionEnter name="-npme" value="-1" enabled="no">Number of separate nodes to be used for PME, -1 is guess</OptionEnter>
+        <OptionEnter name="-nt" value="0" enabled="no">Total number of threads to start (0 is guess)</OptionEnter>
+        <OptionEnter name="-ntmpi" value="0" enabled="no">Number of thread-MPI threads to start (0 is guess)</OptionEnter>
+        <OptionEnter name="-ntomp" value="0" enabled="no">Number of OpenMP threads per MPI process/thread</OptionEnter>
+        <OptionEnter name="-ntomp_pme" value="0" enabled="no">Number of OpenMP threads per MPI process/thread to start (0 is -ntomp)</OptionEnter>
+        <OptionChoose name="-pin" values="auto;on;off" enabled="no">Fix threads (or processes) to specific cores: auto, on or off</OptionChoose>
+        <OptionEnter name="-pinoffset" value="0" enabled="no">The starting logical core number for pinning to cores; used to avoid pinning threads from different mdrun instances to the same core</OptionEnter>
+        <OptionEnter name="-pinstride" value="0" enabled="no">Pinning distance in logical cores for threads, use 0 to minimize the number of threads per physical core</OptionEnter>
+        <OptionEnter name="-gpu_id" value="" enabled="no">List of GPU device id-s to use, specifies the per-node PP rank to GPU mapping</OptionEnter>
+        <OptionChoose name="-ddcheck/-noddcheck" values="-noddcheck;-ddcheck" enabled="no">Check for all bonded interactions with DD</OptionChoose>
+        <OptionEnter name="-rdd" value="0" enabled="no">The maximum distance for bonded interactions with DD (nm), 0 is determine from initial coordinates</OptionEnter>
+        <OptionEnter name="-rcon" value="0" enabled="no">Maximum distance for P-LINCS (nm), 0 is estimate</OptionEnter>
+        <OptionChoose name="-dlb" values="auto;no;yes" enabled="no">Dynamic load balancing (with DD): auto, no or yes</OptionChoose>
+        <OptionEnter name="-dds" value="0.8" enabled="no">Minimum allowed dlb scaling of the DD cell size</OptionEnter>
+        <OptionEnter name="-gcom" value="-1" enabled="no">Global communication frequency</OptionEnter>
+        <OptionChoose name="-nb" values="auto;cpu;gpu;gpu_cpu" enabled="no">Calculate non-bonded interactions on: auto, cpu, gpu or gpu_cpu</OptionChoose>
+        <OptionChoose name="-tunepme/-notunepme" values="-tunepme;-notunepme" enabled="no">Optimize PME load between PP/PME nodes or GPU/CPU</OptionChoose>
+        <OptionChoose name="-notestverlet/-testverlet" values="-notestverlet;-testverlet" enabled="no">Test the Verlet non-bonded scheme</OptionChoose>
+        <OptionChoose name="-v/-nov" values="-v;-nov">Be loud and noisy</OptionChoose>
+        <OptionChoose name="-compact/-nocompact" values="-nocompact;-compact" enabled="no">Write a compact log file</OptionChoose>
+        <OptionChoose name="-seppot/-noseppot" values="-seppot;-noseppot" enabled="no">Write separate V and dVdl terms for each interaction type and node to the log file(s)</OptionChoose>
+        <OptionEnter name="-pforce" value="-1" enabled="no">Print all forces larger than this (kJ/mol nm)</OptionEnter>
+        <OptionChoose name="-reprod/-noreprod" values="-reprod;-noreprod" enabled="no">Try to avoid optimizations that affect binary reproducibility</OptionChoose>
+        <OptionEnter name="-cpt" value="15" enabled="no">Checkpoint interval (minutes)</OptionEnter>
+        <OptionChoose name="-nocpnum/-cpnum" values="-nocpnum;-cpnum" enabled="no">Keep and number checkpoint files</OptionChoose>
+        <OptionChoose name="-append/-noappend" values="-append;-noappend" enabled="no">Append to previous output files when continuing from checkpoint</OptionChoose>
+        <OptionEnter name="-nsteps" value="-2" enabled="no">Run this number of steps, overrides .mdp file option</OptionEnter>
+        <OptionEnter name="-maxh" value="-1" enabled="no">Terminate after 0.99 times this time (hours)</OptionEnter>
+        <OptionEnter name="-multi" value="0" enabled="no">Do multiple simulations in parallel</OptionEnter>
+        <OptionEnter name="-replex" value="0" enabled="no">Attempt replica exchange every # steps</OptionEnter>
+        <OptionEnter name="-nex" value="0" enabled="no">Number of random exchanges to carry out each exchange interval (N^3 is one suggestion).  -nex zero or not specified gives neighbor replica exchange.</OptionEnter>
+        <OptionEnter name="-reseed" value="-1" enabled="no">Seed for replica exchange, -1 is generate a seed</OptionEnter>
+        <OptionChoose name="-ionize/-noionize" values="-ionize;-noionize" enabled="no">Do a simulation including the effect of an X-Ray bombardment on your system</OptionChoose>
+    </OptionsGroup>
+</GrogConfigFile>
+

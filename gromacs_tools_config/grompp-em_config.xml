@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<GrogConfigFile tool="grompp (energy minimization)">
+    <OptionsGroup name="Input Files">
+        <InputFile name="-f" value="grompp-em.mdp">grompp input file with MD parameters</InputFile>
+        <InputFile name="-c" value="conf.gro">Structure file: gro g96 pdb tpr tpb tpa</InputFile>
+        <InputFile name="-r" value="conf.gro" enabled="no">Structure file: gro g96 pdb tpr tpb tpa</InputFile>
+        <InputFile name="-rb" value="conf.gro" enabled="no">Structure file: gro g96 pdb tpr tpb tpa</InputFile>
+        <InputFile name="-n" value="index.ndx" enabled="no">Index file</InputFile>
+        <InputFile name="-p" value="topol.top">Topology file</InputFile>
+        <InputFile name="-t" value="traj.trr" enabled="no">Full precision trajectory: trr trj cpt</InputFile>
+        <InputFile name="-e" value="ener.edr" enabled="no">Energy file: edr ene</InputFile>
+        <InputFile name="-ref" value="rotref.trr" enabled="no">Full precision trajectory: trr trj cpt</InputFile>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Output Files">
+        <OutputFile name="-po" value="mdout.mdp" enabled="no">grompp input file with MD parameters</OutputFile>
+        <OutputFile name="-pp" value="processed.top" enabled="no">Topology file</OutputFile>
+        <OutputFile name="-o" value="topol.tpr">Run input file: tpr tpb tpa</OutputFile>
+    </OptionsGroup>
+    
+    <OptionsGroup name="Program Options">
+        <OptionChoose name="-h/-noh" values="-noh;-h" enabled="no">Print help info and quit</OptionChoose>
+        <OptionChoose name="-noversion/-version" values="-noversion;-version" enabled="no">Print version info and quit</OptionChoose>
+        <OptionEnter name="-nice" value="0" enabled="no">Set the nicelevel</OptionEnter>
+        <OptionChoose name="-v/-nov" values="-v;-nov">Be loud and noisy</OptionChoose>
+        <OptionEnter name="-time" value="-1" enabled="no">Take frame at or first after this time.</OptionEnter>
+        <OptionChoose name="-rmvsbds/-normvsbds" values="-normvsbds;-rmvsbds" enabled="no">Remove constant bonded interactions with virtual sites</OptionChoose>
+        <OptionEnter name="-maxwarn" value="0" enabled="no">Number of allowed warnings during input processing</OptionEnter>
+        <OptionChoose name="-zero/-nozero" values="-zero;-nozero" enabled="no">Set parameters for bonded interactions without defaults to zero instead of generating an error</OptionChoose>
+        <OptionChoose name="-renum/-norenum" values="-norenum;-renum" enabled="no">Renumber atomtypes and minimize number of atomtypes</OptionChoose>
+    </OptionsGroup>
+</GrogConfigFile>
+
