@@ -13,7 +13,7 @@
         <InputFile name="-j" value="wham.gct" enabled="no">General coupling stuff</InputFile>
         <InputFile name="-multidir" value="rundir" enabled="no">Mult. Run directory</InputFile>
         <InputFile name="-membed" value="membed.dat" enabled="no">Generic data file</InputFile>
-        <InputFile name="-mp" value="membed.top" enabled="no">Topology file/InputFile>
+        <InputFile name="-mp" value="membed.top" enabled="no">Topology file</InputFile>
         <InputFile name="-mn" value="membed.ndx" enabled="no">Index file</InputFile>
     </OptionsGroup>
 
